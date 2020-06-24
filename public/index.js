@@ -33,3 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+document.getElementById("login").addEventListener("click", setActionLogin);
+function setActionLogin() {
+  document.getElementById("auth-form").action = "/login";
+  console.log("login");
+}
+
+document.getElementById("signup").addEventListener("click", setActionSignup);
+function setActionSignup() {
+  document.getElementById("auth-form").action = "/register";
+  console.log("signup");
+}

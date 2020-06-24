@@ -10,10 +10,21 @@
     <div class="container">
       <h1>not<span id="h">h</span>ing</h1>
       <p id="description">simple, <span id="perf">perfect</span><br> note-taker</p>
-      <form action="/register" class="form" method="POST">
+      <form id="auth-form" action="/login" class="form" method="POST">
         <input class="input-box" type="text" placeholder="email"><br>
         <input class="input-box" type="password" placeholder="password"><br>
-        <p style="font-size: 10px; margin: 0">login / signup</p>
+        <div class="table">
+          <ul>
+            <li>
+                <input type='radio' value='1' name='radio' id='login' checked/>
+                <label class="auth-btn" for='login'>login</label>
+            </li>
+            <li>
+                <input type='radio' value='2' name='radio' id='signup'/>
+                <label class="auth-btn" for='signup'>signup</label>
+            </li>
+          </ul>
+        </div>
         <button type="submit" class="submit"></button>
       </form>
     </div>

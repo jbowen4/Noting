@@ -9,6 +9,8 @@ const saltRounds = 10;
 
 const app = express();
 
+const Schema = mongoose.Schema;
+
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -16,25 +18,28 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost:27017/notingDB", {useNewUrlParser: true});
 
-const userSchema = {
-  email: String,
-  password: String
-};
-
-const User = new mongoose.model("User", userSchema);
-
-const noteSchema = {
+// Mongoose Schemas & Models
+const NoteSchema = new Schema({
   title: String,
   content: String
-};
+});
+const Note = mongoose.model("Note", NoteSchema);
 
-const Note = mongoose.model("Note", noteSchema);
+const CategorySchema = new Schema({
+  name: String,
+  notes: [NoteSchema]
+});
 
-const categorySchema = {
-  notes: [Note]
-};
+const Category = mongoose.model("Category", CategorySchema);
 
-const Category = mongoose.model("Category", categorySchema);
+const UserSchema = new Schema({
+  email: String,
+  password: String,
+  categories: [CategorySchema]
+});
+const User = new mongoose.model("User", UserSchema);
+
+// Routes
 
 app.get("/", function(req, res){
   res.render("index");
@@ -88,7 +93,6 @@ app.post("/write", function(req, res){
     title: req.body.postTitle,
     content: req.body.postBody
   });
-
 
   note.save(function(err){
     if (!err){
